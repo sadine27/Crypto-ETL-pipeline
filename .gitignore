@@ -1,0 +1,9 @@
+# Security
+.env
+
+# Python Cache (Junk files Python makes automatically)
+__pycache__/
+
+# Local Data (We don't want to upload 50MB CSV files to GitHub)
+*.csv
+*.json
