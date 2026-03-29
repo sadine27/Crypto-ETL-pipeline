@@ -20,7 +20,7 @@ def get_info(data):
     for values in data:
         entry = {}
         entry = {
-            "id" : values.get("id"),
+            "id" : values.get("id","Not Found"),
             "symbol" : values.get("symbol","Not Found"),
             "current price" : values.get("current_price","Not Found"),
             "market_cap_change_percentage_24h" : values.get("market_cap_change_percentage_24h","Not Found")
@@ -44,9 +44,9 @@ def make_csv(master_data):
 make_csv(master_data)
 
 def web_hook():
-    with open("D:/scripts/crypto/Crypto_Data.csv","rb") as f:
+    with open("Crypto_Data.csv","rb") as f:
         payload_file = {
-            "files" : ("D:/scripts/crypto/Crypto_Data.csv",f,"text/csv")
+            "files" : ("Crypto_Data.csv",f,"text/csv")
         }
         respond = requests.post(os.environ.get("N8N_link"),files=payload_file)
     
