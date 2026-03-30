@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      N8N_link: ${{ secrets.N8N_link }}
+      coin_geko_api_key: ${{ secrets.COIN_GEKO_API_KEY }}
+      n8n_web_hook: ${{ secrets.N8N_WEB_HOOK }}
 
     steps:
       - name: Checkout repository
