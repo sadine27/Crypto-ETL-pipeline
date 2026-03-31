@@ -7,3 +7,4 @@ __pycache__/
 # Local Data (We don't want to upload 50MB CSV files to GitHub)
 *.csv
 *.json
+*.xlsx
