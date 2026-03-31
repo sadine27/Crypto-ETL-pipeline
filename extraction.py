@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import os
 from dotenv import load_dotenv
+from excel_formatter import csv_to_excel
 
 load_dotenv()
 
@@ -38,20 +39,27 @@ def make_csv(master_data):
     Crypto_Data = Crypto_Data.drop(index=[0,1])
     Crypto_Data = Crypto_Data[Crypto_Data["market_cap_change_percentage_24h"] < -5.0]
     Crypto_Data.to_csv("Crypto_Data.csv",index=False)
+    excel_file_path = csv_to_excel(
+        input_path = "Crypto_Data.csv",
+        output_path= "Crypto_Data.xlsx",
+        report_title="Crypto Daily Update",
+        sheet_name="Details",
+        include_summary=True
+    )
     print("File successfully created")
-    return()
+    return(excel_file_path)
 
-make_csv(master_data)
+excel_file_path = make_csv(master_data)
 
-def web_hook():
-    with open("Crypto_Data.csv","rb") as f:
+def web_hook(excel_file_path):
+    with open(excel_file_path,"rb") as f:
         payload_file = {
-            "files" : ("Crypto_Data.csv",f,"text/csv")
+            "files" : (str(excel_file_path),f,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         }
         respond = requests.post(os.environ.get("N8N_link"),files=payload_file)
     
     print("Transfer Successful!")
     return()
 
-web_hook()
+web_hook(excel_file_path)
 
